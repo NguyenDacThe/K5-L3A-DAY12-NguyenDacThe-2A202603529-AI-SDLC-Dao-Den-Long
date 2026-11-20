@@ -1,0 +1,55 @@
+{
+  "url": "https://gamedemo-xi.vercel.app",
+  "browser": "157.0.8103.79",
+  "viewport": "1280x720",
+  "assets": [
+    {
+      "path": "/",
+      "status": 200,
+      "content_type": "text/html; charset=utf-8"
+    },
+    {
+      "path": "/src/web.mjs",
+      "status": 200,
+      "content_type": "application/javascript; charset=utf-8"
+    },
+    {
+      "path": "/src/web-v11.mjs",
+      "status": 200,
+      "content_type": "application/javascript; charset=utf-8"
+    },
+    {
+      "path": "/vendor/three/three.module.js",
+      "status": 200,
+      "content_type": "application/javascript; charset=utf-8"
+    },
+    {
+      "path": "/vendor/three/three.core.js",
+      "status": 200,
+      "content_type": "application/javascript; charset=utf-8"
+    },
+    {
+      "path": "/game.contract.json",
+      "status": 200,
+      "content_type": "application/json; charset=utf-8"
+    },
+    {
+      "path": "/style.css",
+      "status": 200,
+      "content_type": "text/css; charset=utf-8"
+    },
+    {
+      "path": "/style-v11.css",
+      "status": 200,
+      "content_type": "text/css; charset=utf-8"
+    }
+  ],
+  "checks": [
+    "HTTP and MIME",
+    "Contract v1.1",
+    "WebGL game starts",
+    "simulation advances",
+    "pause and resume"
+  ],
+  "page_errors": []
+}
