@@ -1,0 +1,21 @@
+{
+  "browser": "157.0.8103.79",
+  "viewport": "1280x720",
+  "checks": [
+    "settings and colorblind mode persist after reload",
+    "HUD has 10 carry slots and capacity label",
+    "pause freezes simulation",
+    "pause settings resumes",
+    "retry keeps current night",
+    "fixture: 3-night dawn survival campaign, results and dawn completion",
+    "fixture: loss and retry"
+  ],
+  "errors": [],
+  "fps": {
+    "fps": 144.2900463188643,
+    "frames": 433,
+    "duration_ms": 3000.9000000119213
+  },
+  "fps_pass": true,
+  "note": "Phase 3 browser verification measured in headless Chrome on Windows; colorblind mode tested and persisted; dawn survival tested across 3 nights."
+}

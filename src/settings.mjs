@@ -2,7 +2,8 @@ export const SETTINGS_KEY = 'dao-den-long.settings.v1';
 export function sanitizeSettings(value = {}) {
   return {
     volume: typeof value?.volume === 'number' && Number.isFinite(value.volume) ? Math.max(0, Math.min(1, value.volume)) : .5,
-    sensitivity: typeof value?.sensitivity === 'number' && Number.isFinite(value.sensitivity) ? Math.max(.1, Math.min(3, value.sensitivity)) : 1
+    sensitivity: typeof value?.sensitivity === 'number' && Number.isFinite(value.sensitivity) ? Math.max(.1, Math.min(3, value.sensitivity)) : 1,
+    colorblind: value?.colorblind === true
   };
 }
 export function loadSettings(storage) {

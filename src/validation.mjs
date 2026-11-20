@@ -21,10 +21,10 @@ export function validateScenario(s, t, night = 1) {
   for (const b of ['random_motes', 'random_shades', 'random_drifters', 'wind_enabled']) if (b in s) requireValue(typeof s[b] === 'boolean', `${b} cần boolean`);
   if ('time_left_s' in s) requireValue(finite(s.time_left_s) && s.time_left_s >= 0, 'time_left_s không hợp lệ');
   if ('player' in s) {
-    keys(s.player, ['pos', 'carried', 'flames', 'invuln_ticks', 'dash_cd_ticks', 'pulse_cd_ticks', 'charm_ticks'], 'player');
+    keys(s.player, ['pos', 'carried', 'flames', 'invuln_ticks', 'dash_cd_ticks', 'pulse_cd_ticks', 'charm_ticks', 'successful_lights'], 'player');
     if ('pos' in s.player) requireValue(pos(s.player.pos), 'player.pos không hợp lệ');
-    for (const key of ['invuln_ticks', 'dash_cd_ticks', 'pulse_cd_ticks', 'charm_ticks']) if (key in s.player) requireValue(integer(s.player[key]), `${key} cần số tick không âm`);
-    if ('carried' in s.player) requireValue(integer(s.player.carried) && s.player.carried <= t.carry_capacity, 'carried vượt sức chứa');
+    for (const key of ['invuln_ticks', 'dash_cd_ticks', 'pulse_cd_ticks', 'charm_ticks', 'successful_lights']) if (key in s.player) requireValue(integer(s.player[key]), `${key} cần số nguyên không âm`);
+    if ('carried' in s.player) requireValue(integer(s.player.carried) && s.player.carried <= Math.min(t.capacity_max, t.carry_capacity + 2 * (s.player.successful_lights ?? 0)), 'carried vượt sức chứa');
     if ('flames' in s.player) requireValue(integer(s.player.flames), 'flames không hợp lệ');
   }
   if ('motes' in s) {
@@ -38,8 +38,9 @@ export function validateScenario(s, t, night = 1) {
     requireValue(Array.isArray(s.shades), 'shades cần array');
     const ids = new Set();
     s.shades.forEach((shade, i) => {
-      keys(shade, ['id', 'pos', 'state', 'state_ticks_left'], 'shade'); requireValue(pos(shade.pos), 'shade.pos không hợp lệ');
-      if ('state' in shade) requireValue(['spawning', 'wander', 'chase', 'recoil', 'stunned'].includes(shade.state), 'shade.state không hợp lệ');
+      keys(shade, ['id', 'pos', 'state', 'state_ticks_left', 'target_lantern_id'], 'shade'); requireValue(pos(shade.pos), 'shade.pos không hợp lệ');
+      if ('state' in shade) requireValue(['spawning', 'wander', 'chase', 'recoil', 'stunned', 'drain'].includes(shade.state), 'shade.state không hợp lệ');
+      if ('target_lantern_id' in shade && shade.target_lantern_id !== null) requireValue(/^L[1-7]$/.test(shade.target_lantern_id) && Number(shade.target_lantern_id.slice(1)) <= night + 4, 'target_lantern_id không hợp lệ');
       if ('state_ticks_left' in shade) requireValue(integer(shade.state_ticks_left), 'state_ticks_left không hợp lệ');
       const id = shade.id ?? `S${i + 1}`;
       requireValue(typeof id === 'string' && id.length > 0 && !ids.has(id), 'shade.id không hợp lệ hoặc trùng'); ids.add(id);
@@ -48,10 +49,12 @@ export function validateScenario(s, t, night = 1) {
   if ('lanterns' in s) {
     requireValue(Array.isArray(s.lanterns), 'lanterns cần array'); const ids = new Set();
     for (const l of s.lanterns) {
-      keys(l, ['id', 'pos', 'deposited', 'lit'], 'lantern');
+      keys(l, ['id', 'pos', 'deposited', 'lit', 'fuel', 'ever_lit'], 'lantern');
       requireValue(typeof l.id === 'string' && /^L[1-7]$/.test(l.id) && Number(l.id.slice(1)) <= night + 4 && !ids.has(l.id), 'lantern.id không hợp lệ hoặc trùng'); ids.add(l.id);
       if ('pos' in l) requireValue(pos(l.pos), 'lantern.pos không hợp lệ');
       if ('lit' in l) requireValue(typeof l.lit === 'boolean', 'lit cần boolean');
+      if ('ever_lit' in l) requireValue(typeof l.ever_lit === 'boolean', 'ever_lit cần boolean');
+      if ('fuel' in l) requireValue(finite(l.fuel) && l.fuel >= 0 && l.fuel <= t.fuel_max, 'fuel không hợp lệ');
       if ('deposited' in l) requireValue(integer(l.deposited) && l.deposited <= t.lantern_cost, 'deposited không hợp lệ');
     }
   }

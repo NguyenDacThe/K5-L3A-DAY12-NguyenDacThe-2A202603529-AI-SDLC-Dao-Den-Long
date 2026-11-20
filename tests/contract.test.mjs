@@ -14,7 +14,7 @@ test('tick 0 precedes input; N steps, interval snapshots and mandatory end', () 
   const rows = simulate({ seed: 1, ticks: 12, scenario: empty, inputs: { frames: [{ tick: 0, move: [0, 1] }] } }).trim().split('\n').map(JSON.parse);
   assert.deepEqual(rows.filter(r => r.type === 'snapshot').map(r => r.tick), [0, 10]);
   assert.deepEqual(rows[0].player.pos, [0, 0, 0]); assert.deepEqual(rows.find(r => r.type === 'snapshot' && r.tick === 10).player.pos, [0, 0, 1]);
-  assert.equal(rows.find(r => r.type === 'snapshot' && r.tick === 10).time_left_s, 300 - 10 / 60); assert.equal(rows.at(-1).ticks, 12);
+  assert.equal(rows.find(r => r.type === 'snapshot' && r.tick === 10).time_left_s, 240 - 10 / 60); assert.equal(rows.at(-1).ticks, 12);
 });
 test('movement normalization, camera rotation and sparse input persistence', () => {
   const g = make(); g.step({ move: [1, 1] }); assert.ok(Math.abs(Math.hypot(g.player.pos[0], g.player.pos[2]) - .1) < 1e-10);
@@ -30,13 +30,13 @@ test('deposit transfers partially, requires rising edge, lights once', () => {
   g.step({ interact: true }); assert.equal(g.lanterns[0].deposited, 6); assert.equal(g.player.carried, 0);
   g.player.carried = 10; assert.equal(g.step({ interact: true }).length, 0);
   g.step({ interact: false }); const events = g.step({ interact: true });
-  assert.equal(g.player.carried, 6); assert.equal(g.lanterns[0].lit, true); assert.equal(events.filter(e => e.name === 'lantern_lit').length, 1); assert.equal(g.score, 200);
+  assert.equal(g.player.carried, 6); assert.equal(g.lanterns[0].lit, true); assert.equal(events.filter(e => e.name === 'lantern_lit').length, 1); assert.equal(g.score, 150);
 });
 test('pulse cost, inclusive radius, push, stun duration and cooldown', () => {
   const g = make({ player: { carried: 10 }, shades: [{ id: 'target', pos: [5, .8, 0] }, { id: 'far', pos: [5.01, .8, 0] }] });
   const events = g.step({ pulse: true }); assert.deepEqual(events[0].data.stunned_ids, ['target']); assert.equal(g.player.carried, 7); assert.ok(Math.abs(g.shades[0].pos[0] - (5 + 4 / 15)) < 1e-9); assert.equal(g.shades[0].state, 'stunned');
   g.step({ pulse: false }); assert.equal(g.step({ pulse: true }).some(e => e.name === 'pulse'), false);
-  while (g.tick < 120) g.step(); assert.equal(g.shades[0].state, 'stunned'); g.step(); assert.equal(g.shades[0].state, 'chase');
+  while (g.tick < 120) g.step(); assert.equal(g.shades[0].state, 'stunned'); g.step(); assert.equal(g.shades[0].state, 'wander');
 });
 test('no light means no pulse; held pulse activates once', () => {
   const g = make(); assert.equal(g.step({ pulse: true }).length, 0);
@@ -54,9 +54,9 @@ test('lit lantern excludes shades and protects player, without setup points/even
   assert.equal(g.score, 0); assert.equal(g.events.length, 0); for (let i = 0; i < 180; i++) g.step();
   assert.equal(g.player.flames, 3); assert.ok(Math.hypot(g.shades[0].pos[0], g.shades[0].pos[2]) >= t.safe_radius - 1e-8);
 });
-test('all_lit win score and dawn stop at exact tick', () => {
-  const g = make({ player: { carried: 10 }, lanterns: Array.from({ length: 5 }, (_, i) => ({ id: `L${i + 1}`, pos: [0, 0, 0], lit: i !== 0 })) });
-  g.step({ interact: true }); assert.equal(g.state, 'won'); assert.equal(g.score, 100 + 100 + 299 * 2 + 150); assert.deepEqual(g.events.at(-1).data, { result: 'won', reason: 'all_lit' });
+test('dawn survival score and dawn stop at exact tick', () => {
+  const g = make({ time_left_s: 1 / 60, player: { carried: 10 }, lanterns: Array.from({ length: 5 }, (_, i) => ({ id: `L${i + 1}`, pos: [0, 0, 0], lit: i !== 0 })) });
+  g.step({ interact: true }); assert.equal(g.state, 'won'); assert.equal(g.score, 50 + 100 + 150 + 4 * 149 + 150); assert.deepEqual(g.events.at(-1).data, { result: 'won', reason: 'dawn_survived' });
   const rows = simulate({ seed: 2, ticks: 100, scenario: { ...empty, time_left_s: 1 / 60 } }).trim().split('\n').map(JSON.parse);
   assert.equal(rows.at(-1).ticks, 1); assert.equal(rows.at(-2).data.reason, 'dawn');
 });

@@ -1,0 +1,83 @@
+{
+  "node": "v24.14.0",
+  "platform": "win32",
+  "os": "10.0.26300",
+  "cpu": "12th Gen Intel(R) Core(TM) i5-12500H",
+  "logical_cpus": 16,
+  "ram_gb": 15.710990905761719,
+  "tests_exit_code": 0,
+  "headless": [
+    {
+      "night": 1,
+      "options": {
+        "seed": 42,
+        "night": 1,
+        "ticks": 21600,
+        "scenario": {
+          "player": {
+            "invuln_ticks": 30000
+          }
+        }
+      },
+      "elapsed_ms": 220.70359999999994,
+      "seconds_limit": 30,
+      "end": {
+        "type": "end",
+        "ticks": 14400,
+        "state": "lost",
+        "score": 0
+      },
+      "byte_identical": true,
+      "sha256": "c4249846e8851769c8e910226233a682d6bf8df316b993bb22ec7ced9fde4934",
+      "bytes": 3831251
+    },
+    {
+      "night": 2,
+      "options": {
+        "seed": 42,
+        "night": 2,
+        "ticks": 21600,
+        "scenario": {
+          "player": {
+            "invuln_ticks": 30000
+          }
+        }
+      },
+      "elapsed_ms": 217.17520000000013,
+      "seconds_limit": 30,
+      "end": {
+        "type": "end",
+        "ticks": 16200,
+        "state": "lost",
+        "score": 0
+      },
+      "byte_identical": true,
+      "sha256": "cffea300b562ddedd821a3a632a00fbd8de6db97a0958f19f3f1f5eaa6641c8d",
+      "bytes": 4694057
+    },
+    {
+      "night": 3,
+      "options": {
+        "seed": 42,
+        "night": 3,
+        "ticks": 21600,
+        "scenario": {
+          "player": {
+            "invuln_ticks": 30000
+          }
+        }
+      },
+      "elapsed_ms": 443.41550000000007,
+      "seconds_limit": 30,
+      "end": {
+        "type": "end",
+        "ticks": 18000,
+        "state": "lost",
+        "score": 0
+      },
+      "byte_identical": true,
+      "sha256": "dcffcb09c958bb653eaf011123bf71d8d1a5617a1d78135ad4300600b4c09caf",
+      "bytes": 6513321
+    }
+  ]
+}
