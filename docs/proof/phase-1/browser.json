@@ -1,0 +1,16 @@
+{
+  "browser": "157.0.8103.79",
+  "http": 200,
+  "checks": [
+    "title rendered",
+    "start",
+    "keyboard move/jump",
+    "camera rotate",
+    "pause freezes HUD",
+    "resume",
+    "resize",
+    "won screen and restart with injected test scenario",
+    "lost screen and restart with injected test scenario"
+  ],
+  "page_errors": []
+}

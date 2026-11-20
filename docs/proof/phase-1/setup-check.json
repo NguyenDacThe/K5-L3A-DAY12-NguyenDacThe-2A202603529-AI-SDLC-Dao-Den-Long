@@ -1,0 +1,11 @@
+{
+  "method": "Copy only source, scripts, tests, package manifest and lockfile into a separate directory without node_modules",
+  "platform": "Windows",
+  "node": "v24.14.0",
+  "commands": ["npm ci --offline --cache ../.npm-cache", "npm run build", "npm test"],
+  "install_exit_code": 0,
+  "build_exit_code": 0,
+  "test_exit_code": 0,
+  "tests_passed": 14,
+  "note": "Uses local npm download cache; not a remote clone or macOS/Linux verification"
+}

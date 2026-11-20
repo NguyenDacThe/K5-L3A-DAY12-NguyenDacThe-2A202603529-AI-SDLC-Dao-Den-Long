@@ -1,0 +1,12 @@
+<!doctype html>
+<html lang="vi">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Đảo Đèn Lồng · Đêm 1</title><link rel="stylesheet" href="style.css"></head>
+<body>
+<canvas id="game" aria-label="Game 3D Đảo Đèn Lồng"></canvas>
+<header><div class="brand">ĐẢO ĐÈN LỒNG<span>Đêm 1 / Đảo Bến</span></div><button id="pause">Tạm dừng</button></header>
+<aside class="hud"><div class="eyebrow">NGƯỜI GIỮ ĐÈN</div><h1>Một đốm sáng.<br>Cả hòn đảo.</h1><p>Gom đom đóm, thắp lại 5 đèn<br>trước khi bình minh đến.</p><div id="stats"></div><div id="lanterns" aria-label="Trạng thái 5 đèn"></div></aside>
+<div id="notice" role="status" aria-live="polite"></div>
+<footer><span><kbd>W A S D</kbd> Di chuyển</span><span><kbd>Space</kbd> Nhảy</span><span><kbd>E</kbd> Nạp đèn</span><span><kbd>F</kbd> Tỏa sáng (2 đốm)</span><span><kbd>← →</kbd> Xoay camera</span><span><kbd>Esc</kbd> Dừng</span></footer>
+<div class="veil" id="overlay"><section><div class="eyebrow">MỘT ĐÊM GIỮ LỬA</div><h2 id="overlay-title">Ánh sáng đang chờ Mây.</h2><p id="overlay-text">Mang những đốm sáng vàng về các cột đèn. Mỗi đèn cần 10 đốm. Né Bóng Mực tím; vùng quanh đèn đã thắp sẽ che chở bạn.</p><button class="primary" id="play">Bắt đầu đêm 1</button><p class="hint">WASD để đi · E để nạp · F để tỏa sáng</p></section></div>
+<script type="module" src="src/web.mjs"></script>
+</body></html>

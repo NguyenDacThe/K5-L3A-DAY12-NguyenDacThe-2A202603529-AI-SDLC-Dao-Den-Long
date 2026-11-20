@@ -1,0 +1,22 @@
+✔ tick 0 precedes input; N steps, interval snapshots and mandatory end (6.1279ms)
+✔ movement normalization, camera rotation and sparse input persistence (0.8795ms)
+✔ pickup uses inclusive horizontal radius and respects capacity (0.425ms)
+✔ deposit transfers partially, requires rising edge, lights once (0.4064ms)
+✔ pulse cost, inclusive radius, push, stun duration and cooldown (2.9919ms)
+✔ no light means no pulse; held pulse activates once (0.3807ms)
+✔ shade hit drops floor ratio, invulnerability and no_flames loss (0.9048ms)
+✔ lit lantern excludes shades and protects player, without setup points/events (1.4437ms)
+✔ all_lit win score and dawn stop at exact tick (0.7485ms)
+✔ jump is edge triggered; island boundary clamps without fall penalty (4.4298ms)
+✔ scenario lists replace defaults, unspecified lanterns persist, seed is deterministic (119.7626ms)
+✔ validators reject invalid types, out-of-range input, duplicate ticks/ids (3.8347ms)
+✔ real CLI writes JSONL and returns exit 2 for malformed input/scenario (501.8748ms)
+✔ default island is winnable by moving, collecting, depositing and pulsing (168.13ms)
+ℹ tests 14
+ℹ suites 0
+ℹ pass 14
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 850.3062

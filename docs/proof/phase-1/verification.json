@@ -1,0 +1,11 @@
+{
+  "node": "v24.14.0",
+  "platform": "win32",
+  "arch": "x64",
+  "tests_exit_code": 0,
+  "determinism": {
+    "seed": 42,
+    "ticks": 1200,
+    "byte_identical": true
+  }
+}
