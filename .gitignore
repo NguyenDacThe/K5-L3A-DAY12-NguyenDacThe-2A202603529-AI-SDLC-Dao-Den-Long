@@ -9,6 +9,7 @@
 node_modules/
 .npm-cache/
 .setup-check/
+.vercel/
 dist/
 build/
 coverage/

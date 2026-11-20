@@ -1,4 +1,4 @@
-name: Verify Phase 1
+name: Verify game and deployment
 on: [push, pull_request]
 jobs:
   verify:

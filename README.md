@@ -1,6 +1,6 @@
 # Đảo Đèn Lồng — Phase 2 · Ba Đêm
 
-Game web 3D qua 3 đêm, theo Ticket-02 và Test Contract **v1.1**. Mây gom đom đóm, thắp đèn, né Bóng Mực và Gió Lạc, dùng dash, bục nhảy và Bùa Gió. Logic mô phỏng dùng chung giữa web/headless, 60 tick/giây. Cần Node.js >=22, npm và trình duyệt WebGL; bản web chạy trên Windows/macOS/Linux.
+Game web 3D qua 3 đêm, theo Ticket-02 và Test Contract **v1.1**. Mây gom đom đóm, thắp đèn, né Bóng Mực và Gió Lạc, dùng dash, bục nhảy và Bùa Gió. Logic mô phỏng dùng chung giữa web/headless, 60 tick/giây. Cần Node.js **24.x**, npm và trình duyệt WebGL; bản web chạy trên Windows/macOS/Linux.
 
 ### Cài và chơi (3 lệnh sau khi clone)
 
@@ -11,6 +11,14 @@ npm start
 ```
 
 Mở **http://localhost:5173**, chọn **Bắt đầu hành trình**, đọc lời Ông Đăng rồi bắt đầu đêm. Không cần API key/dịch vụ bên ngoài khi chơi. `dist/` là bản web tĩnh, dùng HTTP server để phục vụ; không mở bằng `file://`.
+
+### Deploy Vercel
+
+Project hiện tại: **gamedemo**, URL **https://gamedemo-xi.vercel.app/**. Root Directory là gốc repo (`.`). [vercel.json](vercel.json) khai báo Framework **Other**, Install `npm ci`, Build `npm run build`, Output **dist**. Node.js được khóa **24.x** trong package.json. Vercel phục vụ game tĩnh; `npm start` chỉ là server local.
+
+Three.js được đóng gói vào `dist/vendor/three/`, không phụ thuộc URL `node_modules` trên hosting. Kiểm tra bản build bằng `npm run preview`; lệnh này chỉ phục vụ `dist/`, nên cần build trước. Không cần biến môi trường cho game. `.env*` và `.vercel/` giữ local.
+
+Git project đã liên kết với nhánh main. Có thể deploy trực tiếp từ thư mục đã liên kết bằng `vercel deploy --prod`. Xem [ghi chú sửa deployment](docs/notes/vercel.md). Giữ nguyên tag phase-1/phase-2; bản sửa hosting là commit mới.
 
 ### Điều khiển và luật
 

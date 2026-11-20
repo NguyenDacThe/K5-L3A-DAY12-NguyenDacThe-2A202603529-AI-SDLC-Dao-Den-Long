@@ -4,7 +4,8 @@
 - Phase hiện tại: 2 / Contract v1.1. Đọc docs/specs/phase-2.md và phase-2-ticket.txt; thông số chuẩn thay giả định Phase 1.
 - Tách logic mô phỏng khỏi hiển thị; sản phẩm phải chạy trên macOS hoặc Linux.
 - Ghi giả định trong docs/notes/phase-2.md; acceptance criteria cho mục 3 của ticket ở docs/specs/phase-2.md.
-- Node >=22: `npm ci`, `npm run build`, `npm start`, `npm test`; headless: `node src/headless.mjs --seed 42 --night 1 --ticks 600 --out output.jsonl`.
+- Node 24.x: `npm ci`, `npm run build`, `npm start`, `npm test`; headless: `node src/headless.mjs --seed 42 --night 1 --ticks 600 --out output.jsonl`.
+- Vercel: project gamedemo, root repo, Other, npm ci / npm run build / dist (vercel.json). `npm run preview` chỉ phục vụ dist. Library web nằm ở vendor/three, không dùng URL node_modules. Không commit .vercel/ hoặc env từ CLI.
 - Chạy `npm run verify` trước khi kết thúc: fail-fast, test + scenario + determinism + benchmark 3 đêm, ghi docs/proof/phase-2. Không ghi đè bằng chứng Phase 1.
 - Có server và Chrome: `node scripts/browser-check.mjs`; GAME_URL đổi URL khi cổng mặc định 5173 bận.
 - Giữ tick và sim_tick riêng khi pause; thực hiện thứ tự tick theo ticket. Pickup xét XZ + chênh cao, pulse xét 3D, điểm đom đóm cộng khi nạp. Spawn cuối bước, chỉ tương tác từ bước sau.

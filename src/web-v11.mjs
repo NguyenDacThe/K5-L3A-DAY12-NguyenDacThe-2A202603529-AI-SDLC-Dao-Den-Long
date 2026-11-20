@@ -1,11 +1,11 @@
-import * as THREE from '../node_modules/three/build/three.module.js';
+import * as THREE from '../vendor/three/three.module.js';
 import { Game, DT } from './game.mjs';
 import { buildWorldView } from './world-view.mjs';
 import { Campaign } from './campaign.mjs';
 import { loadSettings, saveSettings } from './settings.mjs';
 import { GameAudio } from './audio.mjs';
 import { PALETTE as C } from './palette.mjs';
-const { tuning } = await (await fetch('../game.contract.json')).json(), $ = id => document.getElementById(id);
+const { tuning } = await (await fetch(new URL('../game.contract.json', import.meta.url))).json(), $ = id => document.getElementById(id);
 let storage; try { storage = localStorage; } catch { storage = { getItem: () => null, setItem: () => {} }; }
 let settings = loadSettings(storage); const audio = new GameAudio(settings.volume), campaign = new Campaign();
 const canvas = $('game'); let renderer;

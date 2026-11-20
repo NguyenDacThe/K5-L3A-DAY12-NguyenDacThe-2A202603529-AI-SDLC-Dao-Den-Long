@@ -1,0 +1,12 @@
+.git
+.npm-cache
+.setup-check
+.agents
+.codex
+.github
+docs
+tests
+dist
+*.log
+.env
+.env.*
