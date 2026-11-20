@@ -1,6 +1,10 @@
 .git
 .npm-cache
 .setup-check
+.release-check
+.tools
+release
+data
 .agents
 .codex
 .github

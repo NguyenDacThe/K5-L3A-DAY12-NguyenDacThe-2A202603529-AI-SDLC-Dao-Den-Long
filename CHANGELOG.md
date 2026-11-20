@@ -2,6 +2,15 @@
 
 Toàn bộ các thay đổi qua từng Phase của dự án Đảo Đèn Lồng.
 
+## [1.0.0 / Phase 4 / Contract v1.3] — Bình minh
+
+- Benchmark có cảnh chuẩn200shade/100mote, cameraquay15s, warmup3s, frame statistics vàsceneaudit; trảnullRSSweb vàfalsevsync khi không xácnhậnđược.
+- Soak10đêm mộtprocess, seedvàinputPRNG, lifecycle reset/GC vàRSSgate20%.
+- Bảngđiểmcụcbộ top10, tiebytime, tên3–12/Unicode, điểmchỉđêmthắng, exportCLI/UI.
+- Đổi9phím có báo trùng/reset/lưu; cues spawn/direction/wind/countdown/oil; reduce-motion, UI18px vàchữlớn.
+- Tách adapterfilesystem khỏibrowser, sửa điểm0/fallbackđêmthua và doubleinsert của bản đangdở. Game/headlessv1.2 không đổi luật.
+- ZIPweb độc lập, MP4demo, retro/bằngchứng vàReleasev1.0.0.
+
 ---
 
 ## [Phase 3 / Contract v1.2] — Ticket-03 "Đèn cạn dầu"

@@ -4,10 +4,47 @@
 <body>
 <canvas id="game" aria-label="Game 3D Đảo Đèn Lồng"></canvas>
 <header><div><div class="brand">ĐẢO ĐÈN LỒNG</div><span id="night"></span><div id="flames" aria-label="Ngọn Lửa"></div></div><time id="timer">5:00</time><div class="right"><div id="progress"></div><div id="score"></div><button id="pause">Tạm dừng</button></div></header>
+<div id="subtitles" role="status" aria-live="polite" hidden></div>
 <div id="notice" role="status" aria-live="polite"></div>
+<div id="shade-direction" hidden aria-label="Hướng Bóng Mực xuất hiện"></div>
 <div id="guide" hidden aria-label="Hướng đèn gần nhất"></div>
 <div class="inventory"><div id="carry" aria-label="Đom đóm đang mang"></div><span id="carry-label"></span></div><div id="cooldowns"></div>
 <footer><span><kbd>W A S D</kbd> Đi</span><span><kbd>Space</kbd> Nhảy</span><span><kbd>Shift</kbd> Lướt</span><span><kbd>E</kbd> Nạp</span><span><kbd>F</kbd> Tỏa sáng (3)</span><span><kbd>← →</kbd> / kéo chuột: camera</span><span><kbd>Esc / P</kbd> Dừng</span></footer>
-<div class="veil" id="overlay"><section><div class="eyebrow">BA ĐÊM GIỮ LỬA</div><h1 id="overlay-title">Đảo Đèn Lồng</h1><p id="overlay-text"></p><div id="settings" hidden><label>Âm lượng<input id="volume" type="range" min="0" max="1" step="0.05"></label><label>Độ nhạy chuột<input id="sensitivity" type="range" min="0.1" max="3" step="0.1"></label><label>Bảng màu dễ phân biệt<input id="colorblind" type="checkbox"></label></div><div id="actions"></div><p class="hint">Thắp mới 10 · Thắp lại 5 · Giữ đủ đèn tới bình minh</p></section></div>
+<div class="veil" id="overlay"><section><div class="eyebrow" id="overlay-eyebrow">BA ĐÊM GIỮ LỬA</div><h1 id="overlay-title">Đảo Đèn Lồng</h1><p id="overlay-text"></p>
+<div id="name-form" hidden>
+  <label for="player-name">Tên người chơi</label><input id="player-name" placeholder="Tên (3-12 ký tự)" maxlength="12" pattern="[A-Za-z0-9_]{3,12}">
+  <button id="save-score-btn" class="primary">Lưu điểm</button>
+  <span id="name-error" style="color:var(--danger);font-size:14px"></span>
+</div>
+<div id="settings" hidden>
+  <label>Âm lượng<input id="volume" type="range" min="0" max="1" step="0.05"></label>
+  <label>Độ nhạy chuột<input id="sensitivity" type="range" min="0.1" max="3" step="0.1"></label>
+  <label>Bảng màu dễ phân biệt<input id="colorblind" type="checkbox"></label>
+  <label>Giảm chuyển động (Reduce motion)<input id="reduce-motion" type="checkbox"></label>
+  <label>Cỡ chữ lớn (Large text x1.25)<input id="large-text" type="checkbox"></label>
+  <h3 style="margin:16px 0 8px;color:var(--gold);font-size:16px">Đổi phím điều khiển</h3>
+  <table id="keybindings-table">
+    <tbody>
+      <tr><td>Đi tới</td><td><button id="rebind-up" type="button">W</button></td></tr>
+      <tr><td>Đi lùi</td><td><button id="rebind-down" type="button">S</button></td></tr>
+      <tr><td>Sang trái</td><td><button id="rebind-left" type="button">A</button></td></tr>
+      <tr><td>Sang phải</td><td><button id="rebind-right" type="button">D</button></td></tr>
+      <tr><td>Nhảy</td><td><button id="rebind-jump" type="button">Space</button></td></tr>
+      <tr><td>Lướt</td><td><button id="rebind-dash" type="button">Shift</button></td></tr>
+      <tr><td>Tương tác / Nạp</td><td><button id="rebind-interact" type="button">E</button></td></tr>
+      <tr><td>Tỏa sáng</td><td><button id="rebind-pulse" type="button">F</button></td></tr>
+      <tr><td>Tạm dừng</td><td><button id="rebind-pause" type="button">P</button></td></tr>
+    </tbody>
+  </table>
+  <div id="key-conflict-msg"></div>
+  <button id="reset-keys-btn" type="button" style="margin-top:10px">Đặt lại phím mặc định</button>
+</div>
+<div id="leaderboard" hidden>
+  <table id="leaderboard-table">
+    <thead><tr><th>#</th><th>Tên</th><th>Điểm</th><th>Đêm thắng</th><th>Thời gian</th></tr></thead>
+    <tbody id="leaderboard-body"></tbody>
+  </table>
+</div>
+<button id="export-board" hidden>Xuất bảng điểm JSON</button><div id="actions"></div><p class="hint" id="overlay-hint">Thắp mới 10 · Thắp lại 5 · Giữ đủ đèn tới bình minh</p></section></div>
 <script type="module" src="src/web.mjs"></script>
 </body></html>

@@ -1,0 +1,10 @@
+{
+  "browser": "157.0.8103.79",
+  "checks": [
+    "rebinding, conflicts, persistence, reduce motion and 1.25x text",
+    "visual shade spawn direction",
+    "loss fixture: valid/invalid name, zero won-score, single entry, reload persistence and JSON export"
+  ],
+  "errors": [],
+  "note": "Leaderboard score fixture is synthetic; settings and normal 5-second spawn check use production logic."
+}

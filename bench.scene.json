@@ -1,0 +1,27 @@
+{
+  "shades": 200,
+  "motes": 100,
+  "states": [
+    "wander"
+  ],
+  "player": [
+    0,
+    0,
+    0
+  ],
+  "fuels": [
+    100,
+    100,
+    100
+  ],
+  "camera": [
+    9.253776378016624,
+    15,
+    -28.537127093413968
+  ],
+  "measured_ms": 29999.999999999996,
+  "seed": 42,
+  "duration_s": 30,
+  "headed": true,
+  "notes": "Web RSS unavailable; RAF synchronization cannot be guaranteed disabled by browser flags."
+}

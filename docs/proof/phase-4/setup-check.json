@@ -1,0 +1,10 @@
+{
+  "method": "Separate directory with source and lockfile, no preinstalled dependencies; download cache reused",
+  "node": "v24.14.0",
+  "commands": ["npm ci --offline --cache ../.npm-cache", "npm run build", "npm test"],
+  "install_exit_code": 0,
+  "build_exit_code": 0,
+  "test_exit_code": 0,
+  "tests_passed": 68,
+  "note": "Windows isolated clean dependency/build check, not a claim of a separate Linux machine or hidden tests"
+}

@@ -6,3 +6,5 @@
 - Playwright: https://github.com/microsoft/playwright — Apache-2.0; dùng cho kiểm tra trình duyệt, không đưa vào bản game.
 - Phông chữ hệ thống Segoe UI/Arial/Georgia; không phân phối tệp font.
 - Phase 2: nhạc nền và hiệu ứng gốc được tổng hợp bằng Web Audio (oscillator/envelope) trong src/audio.mjs với hỗ trợ Codex; không sử dụng file nhạc bên ngoài. Bản đồ và bảng màu theo Ticket-02 của lab.
+- Phase 3/4: Antigravity tham gia code và khung trợ năng/benchmark/soak/leaderboard; Codex (OpenAI) tiếp quản kiểm tra, sửa và đóng gói. Không có asset thương mại bên ngoài.
+- Video demo: ghi hình browser thật bằng Playwright, mã hóa H.264 qua FFmpeg (imageio-ffmpeg cho công cụ local). Không dùng video AI thay bằng chứng gameplay.

@@ -166,7 +166,7 @@ export class Game {
           s.state = 'chase'; s.drainTicks = 0;
         }
       }
-      if (s.state === 'wander' && !returnedToWander && d <= 12) s.state = 'chase';
+      if (s.state === 'wander' && !returnedToWander && d <= 12 && !this.benchmark) s.state = 'chase';
       else if (s.state === 'chase' && d > 18) s.state = 'wander';
       if (s.state === 'stunned' && s.pushTicks) { vx = s.push[0] * 4 / 15; vz = s.push[1] * 4 / 15; s.pushTicks--; }
       else if (s.state === 'recoil' && s.recoilTicks) { vx = s.recoil[0] * 2 / 60; vz = s.recoil[1] * 2 / 60; }

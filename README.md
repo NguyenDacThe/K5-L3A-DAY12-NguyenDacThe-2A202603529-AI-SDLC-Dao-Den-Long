@@ -1,8 +1,12 @@
-# Đảo Đèn Lồng — Phase 2 · Ba Đêm
+[Video demo MP4](docs/demo/demo.mp4) · [Chơi trên Vercel](https://gamedemo-xi.vercel.app/) · [Release v1.0.0](https://github.com/NguyenDacThe/K5-L3A-DAY12-NguyenDacThe-2A202603529-AI-SDLC-Dao-Den-Long/releases/tag/v1.0.0)
 
-Game web 3D qua 3 đêm, theo Ticket-02 và Test Contract **v1.1**. Mây gom đom đóm, thắp đèn, né Bóng Mực và Gió Lạc, dùng dash, bục nhảy và Bùa Gió. Logic mô phỏng dùng chung giữa web/headless, 60 tick/giây. Cần Node.js **24.x**, npm và trình duyệt WebGL; bản web chạy trên Windows/macOS/Linux.
+# Đảo Đèn Lồng v1.0.0 — Phase4 / Contract1.3
 
-### Cài và chơi (3 lệnh sau khi clone)
+Game web3D qua ba đêm. Mây đội nónlá gom đomđóm, thắp và châm dầu để giữ ít nhất60% sốđèn sáng tới bìnhminh; tránh BóngMực hút dầu và GióLạc cướpđồ. Cần Node.js24.x/npm, Chrome có WebGL và bàn phím/chuột. Web tĩnh chạy Windows/macOS/Linux, không cần key/dịch vụ ngoài.
+
+![Gameplay](docs/proof/phase-4/game.png)
+
+## Cài và chơi:3lệnh sau khi clone
 
 ```sh
 npm ci
@@ -10,49 +14,48 @@ npm run build
 npm start
 ```
 
-Mở **http://localhost:5173**, chọn **Bắt đầu hành trình**, đọc lời Ông Đăng rồi bắt đầu đêm. Không cần API key/dịch vụ bên ngoài khi chơi. `dist/` là bản web tĩnh, dùng HTTP server để phục vụ; không mở bằng `file://`.
+Mở http://localhost:5173, chọn Bắt đầu hành trình. Để xem đúng bảnbuild dùng `npm run preview` thay `npm start`. Release có ZIPweb sẵn: giải nén, chạy `python3 -m http.server 8000` (Windows:`python -m http.server 8000`), mở http://localhost:8000. Không mởindex bằngfile://.
 
-### Deploy Vercel
+## Điều khiển, luật và điểm
 
-Project hiện tại: **gamedemo**, URL **https://gamedemo-xi.vercel.app/**. Root Directory là gốc repo (`.`). [vercel.json](vercel.json) khai báo Framework **Other**, Install `npm ci`, Build `npm run build`, Output **dist**. Node.js được khóa **24.x** trong package.json. Vercel phục vụ game tĩnh; `npm start` chỉ là server local.
+WASDđi, Space nhảy, Shift lướt, E tương tác, F tỏa sáng; mũi tên trái/phải hoặc kéo chuột xoaycamera, P/Esc tạm dừng. Mọi hành động game đổi được ở Cài đặt, phát hiện trùng, có khôi phục mặc định. Có bảng màu dễphânbiệt, giảmchuyểnđộng, chữlớn×1.25 và volume/mousesensitivity lưu giữa cácphiên.
 
-Three.js được đóng gói vào `dist/vendor/three/`, không phụ thuộc URL `node_modules` trên hosting. Kiểm tra bản build bằng `npm run preview`; lệnh này chỉ phục vụ `dist/`, nên cần build trước. Không cần biến môi trường cho game. `.env*` và `.vercel/` giữ local.
+Đêm1/2/3 kéo dài240/270/300giây, cần3/5,4/6,5/7đèn sáng tại tickcuối. Đủ đèn không thắngsớm; hết3ngọnlửa luônthua. Mỗiđèn100dầu, hao1/giây, dưới30mấtvùngantoàn và BóngMực hút thêm5/giây/con. Thắp mới10đốm, thắp lại5, châm1đốm thêm10dầu. Sứcchứa10+2mỗi lầnthắp, tốiđa20. Sốchuẩn đầyđủ ở game.contract.json và đặc tả từngphase.
 
-Git project đã liên kết với nhánh main. Có thể deploy trực tiếp từ thư mục đã liên kết bằng `vercel deploy --prod`. Xem [ghi chú sửa deployment](docs/notes/vercel.md). Giữ nguyên tag phase-1/phase-2; bản sửa hosting là commit mới.
+Điểm:+5/đốmnạp,+100 thắpmới,+40 thắplại,+5/shade trúngpulse (tổng15nếuđangdrain). Thắngbìnhminh nhận50+floor(fuel) mỗiđènsáng và50mỗilửa; không thưởngthờigian. Tổngđiểm chỉ gồm cácđêmđãthắng.
 
-### Điều khiển và luật
+## Bảng xếp hạng và dữ liệu
 
-| Phím | Hành động |
-|---|---|
-| WASD | Di chuyển theo camera |
-| Space | Nhảy |
-| Shift | Lướt 14 m/s trong 0,2 giây, hồi 1,5 giây |
-| E | Nạp đom đóm vào đèn chưa sáng gần nhất |
-| F | Tỏa sáng: tốn 3 đốm, hồi 3 giây |
-| Mũi tên trái/phải hoặc kéo chuột | Xoay camera |
-| Esc / P / nút Tạm dừng | Tiếp tục, chơi lại đêm, cài đặt hoặc về menu |
+Sau khi thua hoặc thắngĐêm3, nhập tên3–12chữ/số/_ (cóhỗtrợchữcódấu). Top10 theo điểmgiảm, tie theo thờiđiểmđạt trước; lưu name/score/nights_won/achieved_at/seed. Web lưu localStorage trênđĩacủatrìnhduyệt. ServerNode local đồngbộ thêm `data/leaderboard.json`; khôngcommit dữliệucánhân.
 
-Mang tối đa **10**, tự nhặt trong 1 m và chênh cao <=1,5 m. Mỗi đèn cần10, có thể nạp nhiều lần trong2 m. Các hành động chỉ kích hoạt khi vừa nhấn. Hit mất1 lửa, rơi nửa số đốm (nhặt lại trong8 giây), bất tử1,5 giây. Đèn sáng bảo vệ6 m. Rơi Y<-10 mất1 lửa và toàn bộ đốm, hồi sinh sau1 giây. Đêm1/2/3 có5/6/7 đèn, thời lượng300/330/360 giây, bắt đầu với3 lửa. Thắp đủ đèn thắng; hếtlửa hoặc bìnhminh thua. Tổng chỉ cộng điểm những đêm đã thắng.
+```sh
+node scripts/server.mjs --export-leaderboard out.json
+```
 
-Điểm chuẩn: **+10 mỗi đom đóm nạp**, +100 mỗi đèn, +5 mỗi Bóng Mực trúng tỏa sáng; thắng cộng `floor(giây còn lại) × 2 + 50 × ngọn lửa còn lại`. Bùa Gió tăng tốc7,2 m/s và bỏ cooldown dash trong10 giây, hồi45 giây. Gió Lạc cướp tối đa3 đốm; tỏa sáng vào nó khi đang chạy trốn để lấy lại. Cài đặt âm lượng/độ nhạy chuột được lưu; âm thanh tổng hợp bật sau tương tác đầu tiên. Xem [thông số](game.contract.json) và [giả định](docs/notes/phase-2.md).
+Lệnh xuất dữliệu chơiqua serverNode local; trên Vercel hoặc ZIPstatic dùng nút Xuất bảng điểm JSON trongmenu đểxuất cùng dữliệu của browser đó. Xóa dữliệutrìnhduyệt sẽ xóa bảngđiểm/settings local; không có backendxếphạngdùngchung.
 
-### Test Contract v1.1 và bằng chứng
+## Kiểm chứng, headless, benchmark và soak
 
 ```sh
 npm run verify
-node src/headless.mjs --seed 42 --night 1 --ticks 600 --out output.jsonl
-node src/headless.mjs --seed 42 --night 2 --scenario docs/proof/phase-2/steal.scenario.json --inputs docs/proof/phase-2/steal.inputs.json --ticks 1 --out steal.jsonl --snapshot-every 1
+node src/headless.mjs --seed 42 --night 1 --ticks 600 --out out.jsonl
+npm run bench -- --seed 42 --duration 30 --out bench.json
+npm run soak -- --seed 7 --nights 10 --out soak.json
 ```
 
-`npm test` chạy test; `npm run verify` chạy thêm scenario, so byte-output, đo headless đủ3 đêm và ghi bằng chứng Phase2. Headless không dùng DOM/GPU/Three.js. Tham số bắt buộc: `--seed`, `--night 1|2|3`, `--ticks`, `--out`; tùy chọn `--scenario`, `--inputs`, `--snapshot-every` (mặc định10). File input/scenario sai trả2; lỗi CLI/output trả1; thành công0. JSONL: snapshot tick0, event (có night_start), snapshot định kỳ và end bắt buộc. Khi pause, tick tăng nhưng sim_tick không tăng. [Đặc tả/AC](docs/specs/phase-2.md) · [Bằng chứng Phase2](docs/proof/phase-2/README.md) · [Bằng chứng Phase1 ở tag phase-1](docs/proof/phase-1/README.md).
+Headless60Hz, khôngGPU, hỗtrợ --night1/2/3, --scenario/--inputs/--snapshot-every. Inputs/scenariosai mã2; các lỗi khác mãkhác0. Outputtấtđịnh và cácschema1.0–1.2 cònhiệulực giữ nguyên; Contract1.3 thêm bench_cmd/soak_cmd. `npm test` chỉchạytest, verifycòn tạo bằngchứngPhase4. `node scripts/browser-phase4.mjs` kiểm tra UI và ghi demo (cần Chrome, `npx playwright install ffmpeg` cho bản ghi).
 
-Browser test: `npm start`, rồi `node scripts/browser-check.mjs` (Chrome cài sẵn). Có thể đặt GAME_URL nếu dùng cổng khác, BROWSER_CHANNEL=msedge cho Edge. CI Ubuntu chạy build/verify mỗi push/PR; chỉ xác nhận CI khi GitHub đã chạy. Bằng chứng ghi cấu hình máy, thời gian, FPS và giới hạn; chưa chạy bộ test ẩn.
+Benchmark mở Chrome1280×720 với200shade wander/100mote/3đènfuel100, khóa các hệgame theoTicket04, camera15s/vòng. Warmup3s, đo30s; côngthứcFPS/p1low/p95 đúngcontract, sceneaudit ởbench.scene.json. CácflagsChrome yêu cầu tắtvsync nhưng RAFkhôngbảođảm tắt được, nên `vsync_off:false`. Không đoRSSChrome chínhxác nên `peak_mem_mb:null`, đúng ngoại lệbảnweb. Chạy thamkhảo không cócửa sổ: đặt BENCH_HEADLESS=1; phép đo chínhthức dùngcửa sổ. Nếu Chrome không được tìmthấy, cài Chrome trước hoặc cài PlaywrightChromium và đặt BROWSER_CHANNEL=chromium.
 
-### Sáng tạo của tôi
+Soak dùng `--expose-gc`,10đêm cùngtiếntrình. Warmup engine/JIT1200tick trước khi tảiĐêmđầu vàđoRSS; GCđối xứnghai mốc, end sau resetĐêmcuối. Outputdo chạy thật và fail nếucrash hoặcRSS>120%. Kếtquả bench.json/soak.json ởgốcrepo; giới hạn/máyđo ở [bằng chứngPhase4](docs/proof/phase-4/README.md). Chưa chạy hidden tests/máychấm.
 
-Biển mây, sao, vòng ánh sáng an toàn, nhạc và hiệu ứng âm thanh tổng hợp gốc; camera mở mặt cắt tầng giữa khi nhân vật bị che bên dưới. Chúng thuộc lớp hiển thị/âm thanh, không thêm thực thể headless. [Ảnh Phase2](docs/proof/phase-2/night1.png) và [tất định/hiệu năng](docs/proof/phase-2/verification.json). Bản Phase1 vẫn nguyên tại tag phase-1.
+## Hosting, bản quyền và quá trình
 
-Video demo và Release `v1.0.0` dành cho Phase 4, hiện chưa có. Nguồn asset/công cụ: [CREDITS.md](CREDITS.md). Tài liệu lab gốc được giữ bên dưới.
+Vercel projectgamedemo, root `.`, FrameworkOther, npmci/npmrunbuild/outputdist theo vercel.json; Node24.x. Tấtcảassetweb tựchứa trongdist, Three.js ởvendor/three. Không dùngserverghiđĩa trênVercel. `.env*`, `.vercel/`, data vàcôngcụcụcbộ khôngcommit/upload.
+
+Sáng tạo của tôi: biểnmây, sao, vòngsángvùngantoàn, nhạc/hiệuứngtổnghợp vàcutaway tầnggiữanhânvậtbịche. Cácphầntrangtríbổsung tắt trongbenchmark, không tạo thực thểheadless. [CREDITS](CREDITS.md) · [LICENSE](LICENSE) · [Changelog4phase](CHANGELOG.md) · [Retro](docs/retro.md) · [Ghi chúPhase4](docs/notes/phase-4.md).
+
+Các tagphase-1/2/3 giữ nguyên. Phase4 chốtphase-4 vàv1.0.0, cóMP4 vàZIPweb trênGitHubRelease. Phầnlabgốc giữ bên dưới.
 
 ---
 

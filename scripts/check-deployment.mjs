@@ -1,8 +1,9 @@
 import { chromium } from 'playwright';
 import assert from 'node:assert/strict';
-import { mkdirSync, writeFileSync } from 'node:fs';
+import { mkdirSync, writeFileSync, readFileSync } from 'node:fs';
 const base = (process.argv[2] ?? 'https://gamedemo-xi.vercel.app').replace(/\/$/, '');
-const dir = 'docs/proof/deployment'; mkdirSync(dir, { recursive: true });
+const dir = 'release/production-proof'; mkdirSync(dir, { recursive: true });
+const version = JSON.parse(readFileSync(new URL('../game.contract.json', import.meta.url))).contract_version;
 const browser = await chromium.launch({ channel: process.env.BROWSER_CHANNEL ?? 'chrome', headless: true });
 const page = await browser.newPage({ viewport: { width: 1280, height: 720 } });
 const errors = [], assets = [];
@@ -12,7 +13,7 @@ try {
     const response = await page.request.get(base + path), type = response.headers()['content-type'];
     assert.equal(response.status(), 200, path);
     if (/\.(mjs|js)$/.test(path)) assert.match(type, /javascript/, path);
-    if (path === '/game.contract.json') assert.equal((await response.json()).contract_version, '1.1');
+    if (path === '/game.contract.json') assert.equal((await response.json()).contract_version, version);
     assets.push({ path, status: response.status(), content_type: type });
   }
   await page.goto(base, { waitUntil: 'networkidle' });
@@ -25,6 +26,6 @@ try {
   const tick = await page.locator('#game').getAttribute('data-sim-tick'); await page.waitForTimeout(300); assert.equal(await page.locator('#game').getAttribute('data-sim-tick'), tick);
   await page.getByRole('button', { name: 'Tiếp tục', exact: true }).click();
   assert.deepEqual(errors, []);
-  const result = { url: base, browser: browser.version(), viewport: '1280x720', assets, checks: ['HTTP and MIME', 'Contract v1.1', 'WebGL game starts', 'simulation advances', 'pause and resume'], page_errors: errors };
+  const result = { url: base, browser: browser.version(), viewport: '1280x720', assets, checks: ['HTTP and MIME', `Contract v${version}`, 'WebGL game starts', 'simulation advances', 'pause and resume'], page_errors: errors };
   writeFileSync(`${dir}/browser.json`, JSON.stringify(result, null, 2) + '\n'); console.log(JSON.stringify(result));
 } finally { await browser.close(); }

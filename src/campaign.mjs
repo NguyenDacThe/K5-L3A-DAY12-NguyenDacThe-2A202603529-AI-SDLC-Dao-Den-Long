@@ -14,6 +14,8 @@ export class Campaign {
   resume() { if (this.screen === 'paused') this.screen = 'playing'; }
   settings() { this.returnScreen = this.screen; this.screen = 'settings'; }
   closeSettings() { if (this.screen === 'settings') this.screen = this.returnScreen ?? 'menu'; }
+  leaderboard() { this.returnScreen = this.screen; this.screen = 'leaderboard'; }
+  closeLeaderboard() { if (this.screen === 'leaderboard') this.screen = this.returnScreen ?? 'menu'; }
   retry() { this.scores[this.night - 1] = 0; this.lastResult = null; this.screen = 'intro'; }
   complete(result, score) {
     if (this.screen !== 'playing' || !['won', 'lost'].includes(result)) return;
@@ -26,4 +28,5 @@ export class Campaign {
     this.night++; this.lastResult = null; this.screen = 'intro';
   }
   get total() { return this.scores.reduce((a, b) => a + b, 0); }
+  get wonNights() { return this.scores.filter(s => s > 0).length; }
 }

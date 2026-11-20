@@ -56,8 +56,12 @@ test('campaign preserves only won night scores, retries current night, ends at d
 test('pause/settings returns to paused, settings persist and corrupted storage falls back', () => {
   const c = new Campaign(); c.begin(); c.play(); c.pause(); c.settings(); c.closeSettings(); assert.equal(c.screen, 'paused'); c.resume(); assert.equal(c.screen, 'playing');
   const memory = new Map(), storage = { getItem: k => memory.get(k), setItem: (k, v) => memory.set(k, v) };
-  saveSettings(storage, { volume: .2, sensitivity: 1.8, colorblind: false }); assert.deepEqual(loadSettings(storage), { volume: .2, sensitivity: 1.8, colorblind: false });
-  memory.set(SETTINGS_KEY, 'bad json'); assert.deepEqual(loadSettings(storage), { volume: .5, sensitivity: 1, colorblind: false });
+  const expectedDefault = {
+    volume: .2, sensitivity: 1.8, colorblind: false, reduceMotion: false, largeText: false,
+    keybindings: { up: 'KeyW', down: 'KeyS', left: 'KeyA', right: 'KeyD', jump: 'Space', dash: 'ShiftLeft', interact: 'KeyE', pulse: 'KeyF', pause: 'KeyP' }
+  };
+  saveSettings(storage, { volume: .2, sensitivity: 1.8, colorblind: false }); assert.deepEqual(loadSettings(storage), expectedDefault);
+  memory.set(SETTINGS_KEY, 'bad json'); assert.deepEqual(loadSettings(storage), { ...expectedDefault, volume: .5, sensitivity: 1 });
 });
 test('wind warns 2 seconds before a 5-second gust every 30 seconds', () => {
   const wind = { active: false, dir_deg: 0 }, random = () => .25;

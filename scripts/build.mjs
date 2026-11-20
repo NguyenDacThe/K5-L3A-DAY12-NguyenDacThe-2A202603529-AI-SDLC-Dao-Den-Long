@@ -8,7 +8,7 @@ if (relative(root, output) !== 'dist') throw new Error('Unsafe build output path
 await rm(output, { recursive: true, force: true });
 await mkdir(resolve(output, 'src'), { recursive: true });
 await mkdir(resolve(output, 'vendor/three'), { recursive: true });
-for (const file of ['index.html', 'style.css', 'style-v11.css', 'game.contract.json', ...(await readdir(resolve(root, 'src'))).filter(f => f.endsWith('.mjs') && !['headless.mjs', 'validation.mjs'].includes(f)).map(f => `src/${f}`)]) {
+for (const file of ['index.html', 'style.css', 'style-v11.css', 'game.contract.json', ...(await readdir(resolve(root, 'src'))).filter(f => f.endsWith('.mjs') && !['headless.mjs', 'validation.mjs', 'leaderboard-file.mjs'].includes(f)).map(f => `src/${f}`)]) {
   await copyFile(resolve(root, file), resolve(output, file));
 }
 for (const file of ['three.module.js', 'three.core.js']) {

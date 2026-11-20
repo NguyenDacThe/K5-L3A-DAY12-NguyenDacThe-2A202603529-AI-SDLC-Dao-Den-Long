@@ -44,6 +44,6 @@ test('default night 1 survives dawn by collecting, lighting and maintaining oil'
     last = !last;
   }
   const result = { seed: 2026, state: g.state, ticks: g.tick, seconds: g.tick / 60, score: g.score, flames: g.player.flames, lit: g.lanterns.filter(l => l.lit).length, events: count };
-  if (existsSync('docs/proof/phase-3')) writeFileSync('docs/proof/phase-3/playthrough.json', JSON.stringify(result, null, 2) + '\n');
+  if (existsSync('docs/proof/phase-4')) writeFileSync('docs/proof/phase-4/playthrough.json', JSON.stringify(result, null, 2) + '\n');
   assert.equal(g.state, 'won', JSON.stringify(result)); assert.ok(result.lit >= 3); assert.equal(g.simTick, 14400); assert.ok(count.mote_picked >= 30); assert.ok(count.lantern_lit >= 3);
 });
