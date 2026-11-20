@@ -1,0 +1,21 @@
+{
+  "browser": "157.0.8103.79",
+  "viewport": "1280x720",
+  "checks": [
+    "settings persist after reload",
+    "HUD has 10 carry cells",
+    "pause freezes simulation",
+    "pause settings resumes",
+    "retry keeps current night",
+    "fixture: 3-night campaign, results, next night and dawn",
+    "fixture: loss and retry"
+  ],
+  "errors": [],
+  "fps": {
+    "fps": 143.82261877075425,
+    "frames": 432,
+    "duration_ms": 3003.699999988079
+  },
+  "fps_pass": true,
+  "note": "FPS measured in headless Chrome on this Windows machine; campaign win screenshots use explicit test-only scenario injection."
+}

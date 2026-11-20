@@ -1,6 +1,6 @@
-# Đảo Đèn Lồng — bản chơi Phase 1
+# Đảo Đèn Lồng — Phase 2 · Ba Đêm
 
-Game web 3D Đêm 1 – Đảo Bến. Mây gom đom đóm, thắp 5 Đèn Lồng Lớn và né Bóng Mực. Logic mô phỏng dùng chung giữa trình duyệt và headless, 60 tick/giây. Yêu cầu Node.js >=22, npm và trình duyệt hỗ trợ WebGL; chạy trên Windows, macOS hoặc Linux.
+Game web 3D qua 3 đêm, theo Ticket-02 và Test Contract **v1.1**. Mây gom đom đóm, thắp đèn, né Bóng Mực và Gió Lạc, dùng dash, bục nhảy và Bùa Gió. Logic mô phỏng dùng chung giữa web/headless, 60 tick/giây. Cần Node.js >=22, npm và trình duyệt WebGL; bản web chạy trên Windows/macOS/Linux.
 
 ### Cài và chơi (3 lệnh sau khi clone)
 
@@ -10,7 +10,7 @@ npm run build
 npm start
 ```
 
-Mở **http://localhost:5173**, chọn **Bắt đầu đêm 1**. Không cần API key hay dịch vụ bên ngoài khi chơi. Bản web tĩnh ở `dist/` cũng có thể phục vụ bằng HTTP server bất kỳ; không mở trực tiếp bằng `file://`.
+Mở **http://localhost:5173**, chọn **Bắt đầu hành trình**, đọc lời Ông Đăng rồi bắt đầu đêm. Không cần API key/dịch vụ bên ngoài khi chơi. `dist/` là bản web tĩnh, dùng HTTP server để phục vụ; không mở bằng `file://`.
 
 ### Điều khiển và luật
 
@@ -18,30 +18,31 @@ Mở **http://localhost:5173**, chọn **Bắt đầu đêm 1**. Không cần AP
 |---|---|
 | WASD | Di chuyển theo camera |
 | Space | Nhảy |
+| Shift | Lướt 14 m/s trong 0,2 giây, hồi 1,5 giây |
 | E | Nạp đom đóm vào đèn chưa sáng gần nhất |
-| F | Tỏa sáng: tốn 2 đốm, đẩy lùi và làm choáng Bóng Mực |
-| Mũi tên trái/phải | Xoay camera |
-| Esc / nút Tạm dừng | Tạm dừng; nút Tiếp tục để chơi tiếp |
+| F | Tỏa sáng: tốn 3 đốm, hồi 3 giây |
+| Mũi tên trái/phải hoặc kéo chuột | Xoay camera |
+| Esc / P / nút Tạm dừng | Tiếp tục, chơi lại đêm, cài đặt hoặc về menu |
 
-Tự nhặt đom đóm trong bán kính 1,5 m, mang tối đa 20. Mỗi đèn cần 10 đốm, có thể nạp nhiều lần trong bán kính 3 m. Mỗi lần nhấn E/F/Space chỉ kích hoạt một lần; thả rồi nhấn lại để dùng tiếp. Bắt đầu với 3 ngọn lửa, giới hạn 300 giây. Bị chạm mất 1 ngọn lửa, mất `floor(carried × 0.5)` đốm và bất tử 2 giây. Đốm mất đi tan biến. Đèn sáng tạo vùng an toàn 5 m. Thắp đủ 5 đèn thì thắng; hết lửa hoặc hết giờ thì thua. Nút Chơi lại đặt lại toàn bộ màn.
+Mang tối đa **10**, tự nhặt trong 1 m và chênh cao <=1,5 m. Mỗi đèn cần10, có thể nạp nhiều lần trong2 m. Các hành động chỉ kích hoạt khi vừa nhấn. Hit mất1 lửa, rơi nửa số đốm (nhặt lại trong8 giây), bất tử1,5 giây. Đèn sáng bảo vệ6 m. Rơi Y<-10 mất1 lửa và toàn bộ đốm, hồi sinh sau1 giây. Đêm1/2/3 có5/6/7 đèn, thời lượng300/330/360 giây, bắt đầu với3 lửa. Thắp đủ đèn thắng; hếtlửa hoặc bìnhminh thua. Tổng chỉ cộng điểm những đêm đã thắng.
 
-Điểm: +10 mỗi đom đóm, +100 mỗi đèn, +20 mỗi Bóng Mực trúng tỏa sáng; khi thắng cộng `floor(giây còn lại) + 50 × ngọn lửa còn lại`. Các thông số chính xác được dùng trực tiếp từ [game.contract.json](game.contract.json).
+Điểm chuẩn: **+10 mỗi đom đóm nạp**, +100 mỗi đèn, +5 mỗi Bóng Mực trúng tỏa sáng; thắng cộng `floor(giây còn lại) × 2 + 50 × ngọn lửa còn lại`. Bùa Gió tăng tốc7,2 m/s và bỏ cooldown dash trong10 giây, hồi45 giây. Gió Lạc cướp tối đa3 đốm; tỏa sáng vào nó khi đang chạy trốn để lấy lại. Cài đặt âm lượng/độ nhạy chuột được lưu; âm thanh tổng hợp bật sau tương tác đầu tiên. Xem [thông số](game.contract.json) và [giả định](docs/notes/phase-2.md).
 
-### Test Contract v1.0 và bằng chứng
+### Test Contract v1.1 và bằng chứng
 
 ```sh
 npm run verify
 node src/headless.mjs --seed 42 --night 1 --ticks 600 --out output.jsonl
-node src/headless.mjs --seed 42 --night 1 --scenario docs/proof/phase-1/win.scenario.json --inputs docs/proof/phase-1/win.inputs.json --ticks 100 --out win.jsonl --snapshot-every 10
+node src/headless.mjs --seed 42 --night 2 --scenario docs/proof/phase-2/steal.scenario.json --inputs docs/proof/phase-2/steal.inputs.json --ticks 1 --out steal.jsonl --snapshot-every 1
 ```
 
-`npm test` chạy test; `npm run verify` còn lưu bằng chứng và kiểm tra hai lần chạy có output giống hệt. Headless không dùng DOM, GPU hay thư viện Three.js. Tham số bắt buộc: `--seed`, `--night 1`, `--ticks`, `--out`; tùy chọn `--scenario`, `--inputs`, `--snapshot-every` (mặc định 10). File inputs/scenario sai trả mã 2; lỗi CLI/output trả mã 1; thành công trả mã 0. Output JSONL bắt đầu snapshot tick 0, có event khi xảy ra và luôn kết thúc bằng end. Chi tiết: [đặc tả](docs/specs/phase-1.md), [giả định](docs/notes/phase-1.md), [bảng bằng chứng](docs/proof/phase-1/README.md).
+`npm test` chạy test; `npm run verify` chạy thêm scenario, so byte-output, đo headless đủ3 đêm và ghi bằng chứng Phase2. Headless không dùng DOM/GPU/Three.js. Tham số bắt buộc: `--seed`, `--night 1|2|3`, `--ticks`, `--out`; tùy chọn `--scenario`, `--inputs`, `--snapshot-every` (mặc định10). File input/scenario sai trả2; lỗi CLI/output trả1; thành công0. JSONL: snapshot tick0, event (có night_start), snapshot định kỳ và end bắt buộc. Khi pause, tick tăng nhưng sim_tick không tăng. [Đặc tả/AC](docs/specs/phase-2.md) · [Bằng chứng Phase2](docs/proof/phase-2/README.md) · [Bằng chứng Phase1 ở tag phase-1](docs/proof/phase-1/README.md).
 
-Browser smoke test (cần `npm start` đang chạy và Chrome cài sẵn): `node scripts/browser-check.mjs`. CI Linux chạy build và verify trên mỗi push/PR; trạng thái CI chỉ được xác nhận sau khi GitHub chạy.
+Browser test: `npm start`, rồi `node scripts/browser-check.mjs` (Chrome cài sẵn). Có thể đặt GAME_URL nếu dùng cổng khác, BROWSER_CHANNEL=msedge cho Edge. CI Ubuntu chạy build/verify mỗi push/PR; chỉ xác nhận CI khi GitHub đã chạy. Bằng chứng ghi cấu hình máy, thời gian, FPS và giới hạn; chưa chạy bộ test ẩn.
 
 ### Sáng tạo của tôi
 
-Lối đá hướng về 5 đèn, biển mây và vòng sáng vùng an toàn; đảo sáng dần theo số đèn. Tất cả chỉ thuộc lớp hiển thị, không thêm thực thể vào mô phỏng headless. [Ảnh gameplay](docs/proof/phase-1/gameplay.png) và [kiểm tra tất định](docs/proof/phase-1/verification.json).
+Biển mây, sao, vòng ánh sáng an toàn, nhạc và hiệu ứng âm thanh tổng hợp gốc; camera mở mặt cắt tầng giữa khi nhân vật bị che bên dưới. Chúng thuộc lớp hiển thị/âm thanh, không thêm thực thể headless. [Ảnh Phase2](docs/proof/phase-2/night1.png) và [tất định/hiệu năng](docs/proof/phase-2/verification.json). Bản Phase1 vẫn nguyên tại tag phase-1.
 
 Video demo và Release `v1.0.0` dành cho Phase 4, hiện chưa có. Nguồn asset/công cụ: [CREDITS.md](CREDITS.md). Tài liệu lab gốc được giữ bên dưới.
 

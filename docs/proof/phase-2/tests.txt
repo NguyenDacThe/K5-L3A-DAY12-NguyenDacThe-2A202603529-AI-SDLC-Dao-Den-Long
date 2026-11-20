@@ -1,0 +1,48 @@
+✔ tick 0 precedes input; N steps, interval snapshots and mandatory end (4.1253ms)
+✔ movement normalization, camera rotation and sparse input persistence (2.5081ms)
+✔ pickup uses inclusive horizontal radius and respects capacity (0.5884ms)
+✔ deposit transfers partially, requires rising edge, lights once (0.5951ms)
+✔ pulse cost, inclusive radius, push, stun duration and cooldown (2.3639ms)
+✔ no light means no pulse; held pulse activates once (1.0893ms)
+✔ shade hit drops floor ratio, invulnerability and no_flames loss (2.8878ms)
+✔ lit lantern excludes shades and protects player, without setup points/events (2.247ms)
+✔ all_lit win score and dawn stop at exact tick (1.1259ms)
+✔ jump is edge triggered; cloud fall costs flames and eventually loses (4.684ms)
+✔ scenario lists replace defaults, unspecified lanterns persist, seed is deterministic (63.1828ms)
+✔ validators reject invalid types, out-of-range input, duplicate ticks/ids (0.8159ms)
+✔ real CLI writes JSONL and returns exit 2 for malformed input/scenario (312.694ms)
+✔ v1.1 maps have exact island sizes, lantern positions and spawn point counts (3.2897ms)
+✔ bridge edges, cloud gap, upper terraces, ramps and tower are represented (0.8095ms)
+✔ pads launch toward the other island or toward -Z with specified velocity (0.6471ms)
+✔ drifter chase threshold, steal once, no flame loss and flee removal at 240 ticks (0.5861ms)
+✔ drifter loses chase condition; pulse repels chase and recovers stolen motes (0.3531ms)
+✔ charm gives 600 ticks, refreshes and respawns exactly 2700 ticks later (2.4745ms)
+✔ campaign preserves only won night scores, retries current night, ends at dawn (0.555ms)
+✔ pause/settings returns to paused, settings persist and corrupted storage falls back (0.4983ms)
+✔ wind warns 2 seconds before a 5-second gust every 30 seconds (0.3693ms)
+✔ three map views build and dispose without a GPU or browser (22.9371ms)
+✔ headless pause freezes sim_tick, movement, buffs and time while tick advances (6.492ms)
+✔ dash travels 2.8m in 12 ticks, has 90-tick cooldown, holds airborne height (3.515ms)
+✔ charm pickup expires after 600 ticks and respawns after 2700 (69.739ms)
+✔ charm permits re-pressed dashes without cooldown but never interrupts an active dash (1.2087ms)
+✔ drifter theft ignores invulnerability and happens before shade hit (1.8054ms)
+✔ pulse returns a fleeing drifter stash as dropped motes (1.1497ms)
+✔ pulse latches targets in 3D and pushes exactly 4m across 15 steps (2.1419ms)
+✔ fall ignores invulnerability, fires once and respawns after 60 ticks (2.6686ms)
+✔ island pad locks horizontal launch and lands on opposite island (2.2329ms)
+✔ tower pad reaches upper tier without climbing the tower (2.8533ms)
+✔ radial ramp reaches tier 1 with ordinary movement (2.1457ms)
+✔ contractual origin remains usable below the central deck on night 3 (1.2845ms)
+✔ night 3 wind follows gameplay time and pushes 2m/s (13.6274ms)
+✔ scheduled shades start at tick 300, drifters at 1200, all snapshot fields exist (25.7982ms)
+✔ hits scatter recoverable motes born after pickup, TTL starts at 480 (0.5426ms)
+✔ win at dawn has priority over timeout; no flames overrides all lit (0.43ms)
+✔ default island is winnable by moving, collecting, depositing and pulsing (354.0957ms)
+ℹ tests 40
+ℹ suites 0
+ℹ pass 40
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 528.8549

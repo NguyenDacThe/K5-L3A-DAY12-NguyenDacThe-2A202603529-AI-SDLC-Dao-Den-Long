@@ -1,0 +1,11 @@
+{
+  "method": "Separate source directory without preinstalled dependencies; npm ci from lockfile with offline download cache",
+  "platform": "Windows",
+  "node": "v24.14.0",
+  "commands": ["npm ci --offline --cache ../.npm-cache", "npm run build", "npm test"],
+  "install_exit_code": 0,
+  "build_exit_code": 0,
+  "test_exit_code": 0,
+  "tests_passed": 40,
+  "note": "Not a remote clone or a macOS/Linux verification; isolated dependency/build/test check"
+}

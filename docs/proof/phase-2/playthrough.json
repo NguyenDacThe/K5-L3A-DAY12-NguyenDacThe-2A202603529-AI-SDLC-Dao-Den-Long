@@ -1,0 +1,18 @@
+{
+  "seed": 2026,
+  "state": "won",
+  "ticks": 16151,
+  "seconds": 269.18333333333334,
+  "score": 1270,
+  "flames": 3,
+  "lit": 5,
+  "events": {
+    "dash": 175,
+    "mote_picked": 83,
+    "shade_spawned": 6,
+    "deposit": 8,
+    "lantern_lit": 5,
+    "pulse": 9,
+    "game_over": 1
+  }
+}

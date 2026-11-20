@@ -6,7 +6,8 @@ const types = { '.html': 'text/html; charset=utf-8', '.mjs': 'text/javascript', 
 const server = http.createServer(async (req, res) => {
   try {
     const path = decodeURIComponent(new URL(req.url, 'http://localhost').pathname);
-    const allowed = path === '/' || path === '/index.html' || path === '/style.css' || path === '/game.contract.json' || path.startsWith('/src/') || path.startsWith('/node_modules/three/build/');
+    if (path.split('/').some(part => part === '..' || part.startsWith('.'))) { res.writeHead(404); res.end(); return; }
+    const allowed = path === '/' || path === '/index.html' || path === '/style.css' || path === '/style-v11.css' || path === '/game.contract.json' || path.startsWith('/src/') || path.startsWith('/node_modules/three/build/');
     const file = resolve(root, '.' + (path === '/' ? '/index.html' : path));
     if (!allowed || !file.startsWith(root + sep) || !(await stat(file)).isFile()) { res.writeHead(404); res.end(); return; }
     res.writeHead(200, { 'Content-Type': types[extname(file)] ?? 'application/octet-stream', 'Cache-Control': 'no-cache' }); res.end(await readFile(file));
